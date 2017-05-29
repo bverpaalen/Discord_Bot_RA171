@@ -3,6 +3,7 @@ from requests.auth import HTTPDigestAuth
 import json
 
 def restCall(url):
+    print(url)
     response = requests.get(url)
    
     if response.status_code == 200:

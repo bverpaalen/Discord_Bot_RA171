@@ -1,15 +1,17 @@
 #!/usr/bin/env python3
 import discord
-import asyncio
-import config
 import logging
-from datetime import datetime
+import asyncio
 import time
+from datetime import datetime
+
+from classes import bot
+import divinity
+import config
 
 logging.basicConfig(level=logging.INFO)
 client = discord.Client()
-
-
+bot = bot(client)
 @client.event
 async def on_ready():
         print("Logged in as")
@@ -21,27 +23,21 @@ async def on_ready():
 async def on_message(discordInput):
     message = discordInput.content
     channel = discordInput.channel
+    commands = message.split(" ")[1:]
+    text = ""
     print("Message recieved: "+message)
-    if message.startswith("!time"):
-            currentTime = getCurrentTime()
-            landingTime = 1502031600
-            difference = landingTime - int(time.time())
-            print("Sending time")
-            await client.send_message(channel,"System time: "+str(currentTime))
-            await client.send_message(channel,"Brent will be back in: "+str(difference))    
-    elif message.startswith("!discVersion"):
-        await client.send_message(channel,"Library version: "+discord.__version__)
-    elif message.startswith("!allServers"):
-        allServers = ""
-        for server in client.servers:
-            allServers += ","+server.name
-            allServers = allServers[1:]
-        await client.send_message(channel,"Running on: "+allServers)
-    elif message.startswith("!test"):
-        print(client.user)
-        print(client.email)
-        client.change_status("Drinking beer")
-
+    if message.startswith("!divinity"):
+        item = commands[0]
+        if len(commands) > 1:
+            hits = commands[1]
+        else:
+            hits = 1
+        text = divinity.getItemUrl(item,hits)
+    
+    while(text==""):
+        time.sleep(10)
+    await bot.say(channel,text)
+        
 
 def getCurrentTime():
     return datetime.now().strftime('%Y-%m-%d %H:%M:%S')

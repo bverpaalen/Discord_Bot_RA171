@@ -1,2 +1,0 @@
-class Bot:
-    def say()

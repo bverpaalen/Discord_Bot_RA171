@@ -29,7 +29,7 @@ async def on_message(discordInput):
         message = discordInput.content
         print("Message recieved: "+message)
         commands = message.split(" ")[1:]
-        text = selector.selectFlow(message,channel,commands)
+        text = selector.selectFlow(message,channel,commands,robin)
         await submitText(channel,text)
 
 async def submitText(channel,text):

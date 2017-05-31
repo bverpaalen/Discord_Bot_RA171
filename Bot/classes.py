@@ -16,6 +16,10 @@ class bot:
     def setChannels(self,channels):
         self.channels = channels
 
+    def addChannels(self,channels):
+        for channel in channels:
+            self.channels.append(channel)
+
     def getChannels(self):
         return self.channels
 

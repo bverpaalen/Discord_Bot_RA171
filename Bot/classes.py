@@ -1,6 +1,7 @@
 class bot:
     def __init__(self,client):
         self.client = client
+        self.channels = ["divinity"]
 
     async def say(self,channel,text):
          await self.client.send_message(channel,text)
@@ -11,6 +12,12 @@ class bot:
             allServers += ","+server.name
         allServers = allServers[1:]
         return allServers
+
+    def setChannels(self,channels):
+        self.channels = channels
+
+    def getChannels(self):
+        return self.channels
 
     def getUser(self):
         return client.user

@@ -12,4 +12,3 @@ def restCall(url):
     else:
         print(response.status_code)
         return{}
-

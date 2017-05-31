@@ -1,17 +1,17 @@
 from rest import restCall
 wiki='http://divinity.wikia.com/api/v1/'
 
-
-
-def getItemUrl(query,hits=1):
-    url = getUrl(query,hits)
+def QueryUrl(query,hits=1):
+    url = SearchUrl(query,hits)
     dic = restCall(url)
     if dic == {}:
-        return "No Result"
+        return ["No Result"]
     else:
-        return dic
-
+        urls = []
+        items = dic["items"]
+        for item in items:
+            urls.append(item["url"])
+        return urls
     
-def getUrl(query,hits):
-    return wiki + "Search/List/?query="+query+"&limit="+str(hits)
-    
+def SearchUrl(query,hits):
+    return wiki + "Search/List/?query="+query+"&limit="+str(hits)    
